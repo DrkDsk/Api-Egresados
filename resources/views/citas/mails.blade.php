@@ -127,6 +127,33 @@
 </div>
 @endsection
 
+@section('js')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
+
+@if(session('emails') == 'ok')
+    <script>
+        Swal.fire({
+        icon: 'success',
+        title: 'Correos Enviados Correctamente',
+        showConfirmButton: false,
+        timer: 2500
+        })
+    </script>
+@endif
+
+@if(session('emails') == 'wrong')
+    <script>
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Algunas correo no pudieron ser enviados!',
+        footer: '<a href="{{route('citas.noEnviadas')}}">Reenviar Emails?</a>'
+        })
+    </script>
+@endif
+@endsection
+
 <script>
         function back(){
             window.history.back();
