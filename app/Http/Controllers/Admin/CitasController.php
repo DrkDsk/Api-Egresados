@@ -165,7 +165,9 @@ class CitasController extends Controller
                 $fails = true;
             }
         }
-        return redirect()->back()->with('status','Se han envíado Correctamente los Correos');
+        if($fails)
+            return redirect()->back()->with('emails','wrong');
+        return redirect()->back()->with('emails','ok');
     }
 
     public function allCitas(Request $request)
@@ -206,6 +208,8 @@ class CitasController extends Controller
             'asunto'  => 'required'
         ]);
 
+        $fails = false;
+
         $user = Tramite::where('id',$id)->first()->egresado_id;
         $user = Egresado::where('id',$user)->first()->user_id;
         $user = User::where('id',$user)->first()->email;
@@ -218,6 +222,7 @@ class CitasController extends Controller
             "fecha"   => $request->fecha,
             "hora"    => $request->hora,
         ];
+
 
         if ($request->hasFile('file'))
             $data["file"] = $request->file('file');
@@ -242,8 +247,11 @@ class CitasController extends Controller
                 'hora' => $request->hora,
                 'asunto' => $request->asunto
             ]);
+            $fails = true;
         }
-        return redirect()->back()->with('status','Un email ha sido enviado al correo');
+        if($fails)
+            return redirect()->back()->with('emails','wrong');
+        return redirect()->back()->with('emails','ok');
     }
 
     public function deleteCita($id)
