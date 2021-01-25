@@ -24,7 +24,7 @@ class EmailEgresados extends Mailable
 
         if(array_key_exists("file",$dataTemplate)){
             $nameFile = $dataTemplate["file"];
-            dd($nameFile);
+            
             return $this->markdown('Email.emailCita')
             ->subject($dataTemplate["asunto"])
             ->with('mensaje',$dataTemplate["mensaje"])
@@ -33,7 +33,7 @@ class EmailEgresados extends Mailable
             ->with('fecha',$dataTemplate["fecha"])
             ->with('hora',$dataTemplate["hora"])
             ->attach($dataTemplate["file"],[
-                'as' => $dataTemplate["file"]
+                'as' => $nameFile->getClientOriginalName()
             ]);
         }
         else{
