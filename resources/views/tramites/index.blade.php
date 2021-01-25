@@ -42,7 +42,7 @@
                                     
                                     <td>
                                     @if(!$tramite->finalizado)
-                                        <a href="{{route('tramite.finish',$tramite->id)}}" class="btn btn-outline-success btn-sm">
+                                        <a href="{{route('tramite.finish',$tramite->id)}}" class="btn btn-success btn-sm">
                                             Finalizar
                                         </a>
                                     @else
