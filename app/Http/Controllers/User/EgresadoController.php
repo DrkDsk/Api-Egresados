@@ -27,7 +27,7 @@ class EgresadoController extends Controller
     public function getFormulario($id){
         if (!User::where('id',$id)->where('is_admin',0)->first()){
             return response()->json(['Usuario no encontrado'],402);
-        } 
+        }
         
         $formulario = Egresado::where('user_id',$id)->first();
         
