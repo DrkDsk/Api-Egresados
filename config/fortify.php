@@ -130,10 +130,8 @@ return [
     */
 
     'features' => [
-        Features::registration(),
         Features::emailVerification(),
         Features::updateProfileInformation(),
-        Features::updatePasswords(),
         Features::twoFactorAuthentication([
             'confirmPassword' => true,
         ]),
