@@ -71,11 +71,10 @@ class RegisterController extends Controller
         ]);
         
         $tokenData = DB::table('register_tokens')
-        ->where('email',$request->email)->where('token',$request->token)->get();
+        ->where('email',$request->email)->where('token',$request->token)->first();
 
-        if (!$tokenData) return redirect()->back()->withErrors(
-            ['email' => 'Correo Electrónico inválido']
-        );
+        if (!$tokenData) 
+            return redirect()->back()->withErrors(['email' => 'Correo Electrónico inválido']);
         else{
             $user = new User();
             $user->email = $request->email;
