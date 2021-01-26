@@ -13,7 +13,7 @@ class CreateTramitesTable extends Migration
             $table->unsignedBigInteger('egresado_id');
             $table->foreign('egresado_id')
                 ->references('id')
-                ->on('egresados')->onDelete('cascade');
+                ->on('egresados');
             $table->string('tipo');
             $table->boolean('finalizado')->default(false);
             $table->timestamps();

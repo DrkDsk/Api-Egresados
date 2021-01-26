@@ -13,7 +13,7 @@ class CreateCitasTable extends Migration
             $table->unsignedBigInteger('tramite_id');
             $table->foreign('tramite_id')
                 ->references('id')
-                ->on('tramites')->onDelete('cascade');
+                ->on('tramites');
             $table->string('descripcion');
             $table->string('asunto');
             $table->date('fecha');

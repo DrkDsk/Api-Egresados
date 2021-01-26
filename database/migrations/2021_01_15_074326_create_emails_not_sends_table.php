@@ -14,7 +14,7 @@ class CreateEmailsNotSendsTable extends Migration
             $table->unsignedBigInteger('tramite_id');
             $table->foreign('tramite_id')
                 ->references('id')
-                ->on('tramites')->onDelete('cascade');
+                ->on('tramites');
             $table->string('destino');
             $table->text('mensaje');
             $table->string('asunto');
