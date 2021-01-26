@@ -14,7 +14,7 @@
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
-                                <a class="btn btn-primary" href="{{route('dashboard')}}">Regresar</a>
+                                <a class="btn btn-primary" style="text-decoration: none" href="{{route('dashboard')}}">Regresar</a>
                             </div>
                         @endif
 
