@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('password/reset','App\Http\Controllers\Auth\Admin\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+
+Route::post('password/email','App\Http\Controllers\Auth\Admin\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+Route::get('password/reset/{token}/','App\Http\Controllers\Auth\Admin\ForgotPasswordController@showResetForm')->name('password.form');
+
+Route::post('password/update','App\Http\Controllers\Auth\Admin\ForgotPasswordController@updatePassword')->name('password.update');
+
 Route::get('/','App\Http\Controllers\HomeController@index')->name('dashboard');
 
 Route::get('/home','App\Http\Controllers\HomeController@index')->name('dashboard');
