@@ -11,6 +11,12 @@
             
                     <div class="card-body">
 
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+
                         <div class="card-title d-flex justify-content-between">
                             <img src="{{url('assets/img/tecnm.png')}}" style="width:31%; height: 40%;">
                             <img src="{{url('assets/img/icon.png')}}" style="width:15%;">
