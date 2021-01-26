@@ -124,7 +124,7 @@
     <script>
         Swal.fire({
         icon: 'success',
-        title: 'Correos Enviados Correctamente',
+        title: 'Correo Enviado Correctamente',
         showConfirmButton: false,
         timer: 2500
         })
