@@ -22,9 +22,8 @@ class AuthController extends Controller
         if ($validator->fails())
             return response()->json([$validator->errors()->first()],202);
 
-        $credentials = $request->only('email', 'password');
         try {
-            if (!$token = JWTAuth::attempt($credentials)) {
+            if (!$token = JWTAuth::attempt(['email' => $request->email, 'password' => $request->password, 'is_admin' => 0])) {
                 return response()->json(['error' => 'Credenciales inválidas'], 401);
             }
         } catch (JWTException $e) {
@@ -67,7 +66,6 @@ class AuthController extends Controller
             $user->is_admin = 0;
             $user->save();
         }
-
         return response()->json(['status' => 'ok'],200);
     }
 
