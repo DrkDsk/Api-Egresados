@@ -21,9 +21,9 @@ class EmailForgotAdminPassword extends Mailable
     {
         $url = $this->url;
 
-        return $this->markdown('auth.passwords.emailForgotAdminPassword',[
+        return $this->markdown('Email.emailForgotAdminPassword',[
             'url' => $url
         ])
-        ->subject('Reestablecer Contraseña');
+        ->subject('Notificación de restablecimiento de contraseña');
     }
 }
