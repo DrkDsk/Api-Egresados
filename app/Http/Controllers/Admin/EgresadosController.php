@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Egresado;
+use App\Models\Tramite;
 use App\Models\ListaCarrera;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Filter;
@@ -63,8 +64,10 @@ class EgresadosController extends Controller
 
     public function deleteEgresado($id)
     {
+        if(Tramite::where('egresado_id',$id)->first())
+            return response()->json(['resultado' => false]);
         $egresado = Egresado::where('id',$id);
         $egresado->delete();
-        return redirect()->route('egresados.filtrar');
+        return response()->json(['resultado' => true]);
     }
 }

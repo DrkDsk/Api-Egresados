@@ -235,14 +235,23 @@
         }).then((result) => {
             if (result.value) {
                 axios.get(url).then(result => {
-                    Swal.fire({
+                    if(result.data.resultado == true){
+                        Swal.fire({
                         title:'Eliminado!',
                         text:'El Egresado ha sido eliminado.',
                         icon:'success',
-                    })
-                    .then(() => {
-                        location.reload();
-                    });
+                        })
+                        .then(() => {
+                            location.reload();
+                        });
+                    }
+                    else{
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Oops... No se puede Eliminar!',
+                        text: 'El Egresado Cuenta Con Trámites En Proceso!',
+                        })
+                    }
                 })
                 .catch(error => {
                     Swal.fire(
