@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/','App\Http\Controllers\HomeController@index')->name('dashboard');
+
+Route::get('/login','App\Http\Controllers\Auth\Admin\LoginController@getLogin');
+
+Route::post('/login','App\Http\Controllers\Auth\Admin\LoginController@postLogin')->name('login');
+
 Route::get('password/reset','App\Http\Controllers\Auth\Admin\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 
 Route::post('password/email','App\Http\Controllers\Auth\Admin\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
@@ -20,19 +26,11 @@ Route::get('password/reset/{token}/','App\Http\Controllers\Auth\Admin\ForgotPass
 
 Route::post('password/update','App\Http\Controllers\Auth\Admin\ForgotPasswordController@updatePassword')->name('password.update');
 
-Route::get('/','App\Http\Controllers\HomeController@index')->name('dashboard');
-
-Route::get('/home','App\Http\Controllers\HomeController@index')->name('dashboard');
-
-Route::view('/seetings', 'home')->middleware(['auth', 'verified']);
-
-Route::view('/profile/edit', 'profile.edit')->middleware('auth');
-
-Route::view('/profile/password', 'profile.password')->middleware('auth');
-
 Route::get('/register/{token}','App\Http\Controllers\Auth\Admin\RegisterController@showRegisterForm')->name('register.form');
 
 Route::post('/register','App\Http\Controllers\Auth\Admin\RegisterController@postRegister')->name('register');
+
+Route::view('/seetings', 'home')->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group( function (){
 
