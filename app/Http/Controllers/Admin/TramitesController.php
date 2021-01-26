@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tramite;
+use App\Models\Cita;
 use App\Models\ListaCarrera;
 use App\Models\ListaTramite;
 use App\Http\Controllers\Admin\Filter;
@@ -83,8 +84,10 @@ class TramitesController extends Controller
 
     public function deleteTramite($id)
     {
+        if(Cita::where('tramite_id',$id)->first())
+            return response()->json(['resultado' => false]);
         $tramite = Tramite::where('id',$id);
         $tramite->delete();
-        return redirect()->back();
+        return response()->json(['resultado' => true]);
     }
 }
