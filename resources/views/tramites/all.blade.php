@@ -203,6 +203,9 @@
                     <div class="table-responsive">
                     <table id="example1" class="text-center table table-bordered table-striped">
                         <thead>
+                            @if(!count($tramites))
+                            <th scope="col">No hay Trámites Registrados</th>
+                            @else
                             <tr>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Apellido Paterno</th>
@@ -212,6 +215,7 @@
                                 <th scope="col">Carrera</th>
                                 <th scope="col" style="width: 180px">Opciones</th>
                             </tr>
+                            @endif
                         </thead>
 
                         <tbody>
@@ -225,7 +229,7 @@
                             <td scope="row">{{$tramite->carrera}}</td>
                             <td>
                                 <a href="{{route('egresados.tramites',$tramite->egresado_id)}}" class="btn btn-info btn-sm">
-                                    Ver Trámite
+                                    Ver Trámites
                                 </a>
                                 @if($tramite->finalizado)
                                     <a onclick="confirmation(event,true)" href="{{route('tramite.finish',$tramite->id)}}" class="btn btn-success btn-sm">

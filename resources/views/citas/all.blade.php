@@ -85,6 +85,9 @@
                     <div class="table-responsive-md">
                     <table id="example1" class="text-center table table-bordered table-striped">
                         <thead>
+                            @if(!count($citas))
+                                <th scope="col">No hay Citas Establecidas</th>
+                            @else
                             <tr>
                                 <th scope="col">No. Control</th>
                                 <th scope="col">Carrera</th>
@@ -93,6 +96,7 @@
                                 <th scope="col">Hora</th>
                                 <th scope="col">Descripción</th>
                             </tr>
+                            @endif
                         </thead>
 
                         <tbody>

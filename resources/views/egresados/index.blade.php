@@ -172,6 +172,9 @@
                     <div class="table-responsive">
                         <table class="text-center table table-bordered table-striped">
                             <thead>
+                                @if(!count($egresados))
+                                <th scope="col">No hay Trámites Registrados</th>
+                                @else
                                 <tr>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Apellido Paterno</th>
@@ -182,6 +185,7 @@
                                     <th scope="col">Fecha de Egreso</th>
                                     <th scope="col" style="width: 180px">Opciones</th>
                                 </tr>
+                                @endif
                             </thead>
 
                             <tbody>
