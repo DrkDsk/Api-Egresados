@@ -20,7 +20,7 @@
                             <img src="{{url('assets/img/icon.png')}}" style="width:15%;">
                         </div>
 
-                        <p class="text-center mb-1">Correo Electrónico a Invitar</p>
+                        <p class="text-center h4 mb-1">Correo Electrónico a Invitar</p>
 
                         <div class="card-text pt-4">
                             <form method="POST" action="{{ route('sendEmail.register') }}">
