@@ -20,7 +20,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails())
-            return response()->json(['Datos Requeridos'],202);
+            return response()->json([$validator->errors()->first()],202);
 
         $credentials = $request->only('email', 'password');
         try {
@@ -48,12 +48,12 @@ class AuthController extends Controller
     public function register(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
         if ($validator->fails())
-            return response()->json(['mensaje' => 'Datos Requeridos'],202);
+            return response()->json([$validator->errors()->first()],400);
         
         if(User::where('email',$request->email)->first()){
             return response()->json([
