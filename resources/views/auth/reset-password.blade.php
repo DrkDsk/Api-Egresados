@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card" style="top: -4.0rem;">
                 <div class="card-header">
-                    <p class="h3">Reinciar Contraseña</p> 
+                    <p class="h3">Reiniciar Contraseña</p> 
                 </div>
 
                 <div class="card-body">
