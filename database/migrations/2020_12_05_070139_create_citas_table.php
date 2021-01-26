@@ -14,7 +14,7 @@ class CreateCitasTable extends Migration
             $table->foreign('tramite_id')
                 ->references('id')
                 ->on('tramites');
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->string('asunto');
             $table->date('fecha');
             $table->time('hora');
