@@ -66,7 +66,8 @@ class RegisterController extends Controller
     {   
         $validate = $request->validate([
             'email'=>'required',
-            'password'=>'required|confirmed',
+            'password'=>    'required|confirmed|min:10|regex:/[a-z]/
+                            |regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/',
             'password_confirmation' => 'required'
         ]);
         

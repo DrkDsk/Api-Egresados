@@ -14,6 +14,17 @@
                         <img src="{{url('assets/img/tecnm.png')}}" style="width:31%; height: 40%;">
                         <img src="{{url('assets/img/icon.png')}}" style="width:15%;">
                     </div>
+
+                    <p class="text-center mb-2">Correo Electrónico y Contraseña</p>
+                    
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            <li>La Contraseña debe contener al menos 10 carácteres</li>
+                            <li>La Contraseña debe contener al menos una Mayúscula</li>
+                            <li>La Contraseña debe contener al menos una Minúscula</li>
+                            <li>La Contraseña debe contener al menos un carácter especial [ @$!%*#?& ]</li>
+                        </ul>
+                    </div>
                     
                     <div class="card-text">
                         <form method="POST" action="{{ route('password.update') }}">

@@ -14,6 +14,7 @@
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
+                                <a class="btn btn-primary" href="{{route('dashboard')}}">Regresar</a>
                             </div>
                         @endif
 
@@ -21,7 +22,16 @@
                             <img src="{{url('assets/img/tecnm.png')}}" style="width:31%; height: 40%;">
                             <img src="{{url('assets/img/icon.png')}}" style="width:15%;">
                         </div>
-                        <p class="text-center mb-0">Correo Electrónico y Contraseña</p>
+                        <p class="text-center mb-2">Correo Electrónico y Contraseña</p>
+
+                            <div class="alert alert-danger" role="alert">
+                                <ul>
+                                    <li>La Contraseña debe contener al menos 10 carácteres</li>
+                                    <li>La Contraseña debe contener al menos una Mayúscula</li>
+                                    <li>La Contraseña debe contener al menos una Minúscula</li>
+                                    <li>La Contraseña debe contener al menos un carácter especial [ @$!%*#?& ]</li>
+                                </ul>
+                            </div>
 
                         <div class="card-text pt-4">
                             <form method="POST" action="{{ route('register') }}">
