@@ -54,13 +54,13 @@ class EgresadoController extends Controller
         ]);
         
         if ($validator->fails())
-            return response()->json([$validator->errors()->first()],202);
+            return response()->json([$validator->errors()->first()],400);
 
         if(Egresado::where('noControl',$request->noControl)->first())
-            return response()->json(["Número de Control Tomado"],202);
+            return response()->json(["Número de Control Tomado"],400);
 
         if (!User::where('id',$request->id)->where('is_admin',0)->first()) 
-            return response()->json(['Usuario no encontrado'],401);
+            return response()->json(['Usuario no encontrado'],403);
 
         $id = Egresado::where('user_id',$request->id)->first();
 
@@ -99,12 +99,15 @@ class EgresadoController extends Controller
         ]);
         
         if ($validator->fails())
-            return response()->json([$validator->errors()->first()],202);
-
-        if (!User::where('id',$request->id)->where('is_admin',0)->first()) 
-            return response()->json(['Usuario no encontrado'],401);
+            return response()->json([$validator->errors()->first()],400);
         
-        $formulario = Egresado::where('user_id',$request->id)->first();
+        if(Egresado::where('noControl',$request->noControl)->where('user_id','!=',$id)->first())
+            return response()->json(["Número de Control Tomado"],400);
+
+        if (!User::where('id',$id)->where('is_admin',0)->first()) 
+            return response()->json(['Usuario no encontrado'],403);
+        
+        $formulario = Egresado::where('user_id',$id)->first();
         if($formulario){
             $formulario->name = $request->name;
             $formulario->apellido1 = $request->apellido1;
