@@ -41,8 +41,11 @@
                 </a>
 
                 <div class="sidebar">
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                </div>
+                
+                    <div class="user-panel text-center mt-3 pb-3 mb-3">
+                        <p class="h4 text-light">{{Auth::user()->email}}</p>
+                    </div>
+                
 
                 <div class = "sidebar">
                 <nav class="mt-2">
