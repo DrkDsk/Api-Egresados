@@ -125,9 +125,9 @@
 
                 <footer class="main-footer">
                     <div class="float-right d-none d-sm-block">
-                    <b>Versión</b> 3.1.0-rc
+                    <b>Versión</b> 1.0
                     </div>
-                    <strong>Sistema de Administración de Registro de Titulación de Egresados; 2020-2021 <a href="https://ittgegresados.online">ittgegresados.online</a>.</strong> Todos los Derechos Reservados.
+                    <strong>Sistema de Administración de Registro de Titulación de Egresados; 2020-2021.</strong> Todos los Derechos Reservados.
                 </footer>
             </div>
 @endsection
