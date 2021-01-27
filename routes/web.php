@@ -12,11 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/','App\Http\Controllers\HomeController@index')->name('dashboard');
 
-Route::get('/login','App\Http\Controllers\Auth\Admin\LoginController@getLogin');
-
-Route::post('/login','App\Http\Controllers\Auth\Admin\LoginController@postLogin')->name('login');
+Route::get('/','App\Http\Controllers\HomeController@index')->name('dashboard')->middleware('verified');
 
 Route::get('password/reset','App\Http\Controllers\Auth\Admin\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 
