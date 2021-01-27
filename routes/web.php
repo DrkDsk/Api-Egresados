@@ -29,7 +29,7 @@ Route::post('/register','App\Http\Controllers\Auth\Admin\RegisterController@post
 
 Route::view('/seetings', 'home')->middleware(['auth', 'verified']);
 
-Route::middleware('auth')->group( function (){
+Route::middleware(['auth','verified'])->group( function (){
 
     Route::get('/register','App\Http\Controllers\Auth\Admin\RegisterController@getEmailRegister')->name('register.request');
     
