@@ -31,11 +31,24 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Fortify::authenticateUsing(function (Request $request) {
+            $user = User::where('email', $request->email)->first();
+    
+            if ($user 
+                && Hash::check($request->password, $user->password) && $user->is_admin == 1) {
+                return $user;
+            }
+        });
+
+        Fortify::registerView(fn () => view('auth.register'));
+
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
+        Fortify::loginView(fn () => view('auth.login'));
+        
         Fortify::verifyEmailView(function () {
             return view('auth.verify-email');
         });
