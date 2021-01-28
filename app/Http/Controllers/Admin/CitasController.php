@@ -13,6 +13,7 @@ use App\Models\Egresado;
 use App\Models\Tramite;
 use App\Models\ListaCarrera;
 use App\Models\ListaTramite;
+use App\Jobs\SendEmailEgresados;
 
 class CitasController extends Controller
 {
@@ -144,7 +145,7 @@ class CitasController extends Controller
             $data["tramite"] = $tramite->tipo;
 
             try {
-                \Mail::to($user)->send(new EmailEgresados($data));
+                SendEmailEgresados::dispatch($user,$data);
 
                 $cita = new Cita();
                 $cita->tramite_id = $tramite->id;
