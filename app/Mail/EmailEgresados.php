@@ -24,9 +24,6 @@ class EmailEgresados extends Mailable implements ShouldQueue
         
         if(array_key_exists("file",$dataTemplate)){
             try {
-                $dataToEncode = $dataTemplate["file"];
-                $dataToEncode = utf8_encode($dataToEncode);
-                dd($dataToEncode);
                 return $this->markdown('Email.emailCita')
                 ->subject($dataTemplate["asunto"])
                 ->with('mensaje',$dataTemplate["mensaje"])
@@ -34,9 +31,8 @@ class EmailEgresados extends Mailable implements ShouldQueue
                 ->with('asunto',$dataTemplate["asunto"])
                 ->with('fecha',$dataTemplate["fecha"])
                 ->with('hora',$dataTemplate["hora"])
-                ->attachData(utf8_decode($dataToEncode),$dataTemplate["nameFile"], $options = []);
+                ->attachData(base64_decode($dataTemplate["file"]),$dataTemplate["nameFile"]);
             } catch (\Throwable $th) {
-                dd("two");
             }
         }
         else{
