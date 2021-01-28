@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EmailForgotUserPassword extends Mailable
+class EmailForgotUserPassword extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
     protected $token;
