@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use DB;
-use App\Jobs\SendEmail;
+use App\Jobs\SendEmailInvitation;
 use App\Mail\EmailInvitationAdminRegister;
 
 class RegisterController extends Controller
@@ -50,12 +50,11 @@ class RegisterController extends Controller
         $link = \URL::to('/') . '/register/' . $token . '?email=' . urlencode($email);
         
         try{
-            SendEmail::dispatch($email,$link);
-            //\Mail::to($email)->queue(new EmailInvitationAdminRegister($link));
+            SendEmailInvitation::dispatch($email,$link);
             return true;
         }
         catch(\Throwable $th){
-            dd($th);
+            return false;
         }
     }
 
