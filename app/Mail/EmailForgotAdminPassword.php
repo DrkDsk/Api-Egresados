@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EmailForgotAdminPassword extends Mailable implements ShouldQueue
+class EmailForgotAdminPassword extends Mailable
 {
     use Queueable, SerializesModels;
     protected $url;
