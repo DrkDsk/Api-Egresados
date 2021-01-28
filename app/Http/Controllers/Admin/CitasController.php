@@ -13,6 +13,8 @@ use App\Models\Egresado;
 use App\Models\Tramite;
 use App\Models\ListaCarrera;
 use App\Models\ListaTramite;
+use App\Jobs\SendEmailEgresados;
+use Illuminate\Support\Facades\Storage;
 
 class CitasController extends Controller
 {
@@ -144,8 +146,7 @@ class CitasController extends Controller
             $data["tramite"] = $tramite->tipo;
 
             try {
-                \Mail::to($user)->send(new EmailEgresados($data));
-
+                SendEmailEgresados::dispatch($user,$data);
                 $cita = new Cita();
                 $cita->tramite_id = $tramite->id;
                 $cita->descripcion = $request->mensaje;
@@ -154,7 +155,8 @@ class CitasController extends Controller
                 $cita->asunto = $request->asunto;
                 $cita->save();
             } catch (\Throwable $th) {
-                \DB::table('emails_not_sends')->insert([
+                dd($th);
+                /*\DB::table('emails_not_sends')->insert([
                     'destino' => $user,
                     'mensaje' => $request->mensaje,
                     'tramite_id' => $tramite->id,
@@ -163,6 +165,7 @@ class CitasController extends Controller
                     'asunto' => $request->asunto
                 ]);
                 $fails = true;
+                */
             }
         }
         if($fails)
@@ -201,12 +204,12 @@ class CitasController extends Controller
 
     public function postCitar(Request $request,$id)
     {
-        $request->validate([
+        /*$request->validate([
             'mensaje' => 'required',
             'fecha'   => 'required',
             'hora'    => 'required',
             'asunto'  => 'required'
-        ]);
+        ]);*/
 
         $fails = false;
 
@@ -223,23 +226,38 @@ class CitasController extends Controller
             "hora"    => $request->hora,
         ];
 
-
-        if ($request->hasFile('file'))
-            $data["file"] = $request->file('file');
+        /*if ($request->hasFile('file')){
+            $final_path = 'public/docs/';
+            $file = $request->file('file');
+            $name_file = $file->getClientOriginalName();
+            $path = $file->storeAs($final_path,$name_file);
+            $contents = Storage::get($path);
+            $data["file"] = $contents;
+            $data["nameFile"] = $name_file;
+        }
+        */
 
         try {
-            \Mail::to($user)->send(new EmailEgresados($data));
-
-            $cita = new Cita();
+            if(!$request->hasFile('file')){
+                SendEmailEgresados::dispatch($user,$data);
+            }
+            //SendEmailEgresados::dispatch($user,$data);
+            else{
+                \Mail::to($user)->send(new EmailEgresados($data));
+            }
+            
+            /*$cita = new Cita();
             $cita->tramite_id = $id;
             $cita->descripcion = $request->mensaje;
             $cita->fecha = $request->fecha;
             $cita->hora  = $request->hora;
             $cita->asunto = $request->asunto;
             $cita->save();
+            */
 
         } catch (\Throwable $th) {
-            \DB::table('emails_not_sends')->insert([
+            dd($th);
+            /*\DB::table('emails_not_sends')->insert([
                 'destino' => $user,
                 'mensaje' => $request->mensaje,
                 'tramite_id' => $id,
@@ -248,9 +266,11 @@ class CitasController extends Controller
                 'asunto' => $request->asunto
             ]);
             $fails = true;
+            */
         }
-        if($fails)
+        /*if($fails)
             return redirect()->back()->with('emails','wrong');
+        */
         return redirect()->back()->with('emails','ok');
     }
 
