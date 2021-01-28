@@ -50,8 +50,7 @@ class RegisterController extends Controller
         $link = \URL::to('/') . '/register/' . $token . '?email=' . urlencode($email);
         
         try{
-            SendEmail::dispatch($email,$link);
-            //\Mail::to($email)->queue(new EmailInvitationAdminRegister($link));
+            \Mail::to($email)->queue(new EmailInvitationAdminRegister($link));
             return true;
         }
         catch(\Throwable $th){

@@ -81,7 +81,7 @@ class ForgotPasswordController extends Controller
         $link = \URL::to('/') . '/password/reset/' . $token;
 
         try {
-            \Mail::to($user)->send(new EmailForgotAdminPassword($link));
+            \Mail::to($user)->queue(new EmailForgotAdminPassword($link));
             return true;
         }
         catch (\Throwable $th) {
