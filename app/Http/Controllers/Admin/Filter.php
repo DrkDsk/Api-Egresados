@@ -36,7 +36,8 @@ class Filter{
             if($dates[$i] == " ") $dates[$i] = "";
         
         $tramites = Tramite::join('egresados','tramites.egresado_id','=','egresados.id')
-        ->select('tramites.*','egresados.name','egresados.apellido1','egresados.apellido2','egresados.noControl','egresados.carrera')
+        ->select('tramites.*','egresados.name','egresados.apellido1','egresados.apellido2',
+        'egresados.noControl','egresados.carrera','egresados.fechaIngreso','egresados.fechaEgreso')
         ->tipo($tramite)
         ->carrera($carrera)
         ->fechaIngresoRange($dates[0])
