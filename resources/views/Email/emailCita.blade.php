@@ -8,5 +8,5 @@ acerca del Trámite Solicitado: {{$tramite}}
 {{$mensaje}}
 
 Gracias,<br>
-{{ config('app.name') }}
+ITTG
 @endcomponent
