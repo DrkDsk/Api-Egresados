@@ -9,5 +9,5 @@ recuadro de la aplicación móvil.
 <p></p>
 
 Gracias,<br>
-{{ config('app.name') }}
+ITTG
 @endcomponent
