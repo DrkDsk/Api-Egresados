@@ -137,8 +137,15 @@ class CitasController extends Controller
             "hora"    => $request->hora,
         ];
 
-        if ($request->hasFile('file'))
-            $data["file"] = $request->file('file');
+        if ($request->hasFile('file')){
+            $final_path = 'public/docs/';
+            $file = $request->file('file');
+            $name_file = $file->getClientOriginalName();
+            $path = $file->storeAs($final_path,$name_file);
+            $contents = Storage::get($path);
+            $data["file"] = base64_encode($contents);
+            $data["nameFile"] = $name_file;
+        }
         
         foreach ($egresadosSelected as $tramite){
             $user = Egresado::where('id',$tramite->egresado_id)->first()->user_id;
@@ -155,8 +162,7 @@ class CitasController extends Controller
                 $cita->asunto = $request->asunto;
                 $cita->save();
             } catch (\Throwable $th) {
-                dd($th);
-                /*\DB::table('emails_not_sends')->insert([
+                \DB::table('emails_not_sends')->insert([
                     'destino' => $user,
                     'mensaje' => $request->mensaje,
                     'tramite_id' => $tramite->id,
@@ -165,9 +171,10 @@ class CitasController extends Controller
                     'asunto' => $request->asunto
                 ]);
                 $fails = true;
-                */
             }
         }
+        if($request->hasFile('file'))
+            Storage::delete($path);
         if($fails)
             return redirect()->back()->with('emails','wrong');
         return redirect()->back()->with('emails','ok');
