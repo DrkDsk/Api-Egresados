@@ -27,6 +27,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/postTramite','App\Http\Controllers\User\EgresadoController@setTramite');
     
     Route::get('/getCitas/{id}','App\Http\Controllers\User\EgresadoController@getCitas');
+
+    Route::get('/active/{id}','App\Http\Controllers\Auth\User\AuthController@getUser');
 });
 
 Route::post('login','App\Http\Controllers\Auth\User\AuthController@login');
