@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             'Ing. Mecánica',
             'Ing. Química',
             'Ing. Bioquímica',
-            'Ing. Electrica',
+            'Ing. Eléctrica',
             'Ing. Electrónica',
             'Ing. En Gestión Empresarial',
             "Ing. Industrial",
