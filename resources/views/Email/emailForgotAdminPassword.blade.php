@@ -1,11 +1,11 @@
 @component('mail::message')
 # ITTG
 
-Se Ha Solicitado Reestablecer la Contraseña, Presiona
-El Botón para Reestablecer tu Contraseña
+Se Ha Solicitado Restablecer la Contraseña, Presiona
+El Botón para Restablecer tu Contraseña
 
 @component('mail::button', ['url' => ($url)])
-Reestablecer Contraseña
+Restablecer Contraseña
 @endcomponent
 
 <br>
