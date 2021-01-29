@@ -49,7 +49,7 @@
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3>{{$noTramites}}</h3>
-                                        <p>Egresados con Trámites</p>
+                                        <p>Trámites Solicitados</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion material-icons">text_snippet</i>
@@ -99,7 +99,7 @@
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3>{{$newTramites}}</h3>
-                                        <p>Nuevos Trámite</p>
+                                        <p>Nuevos Trámites</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion material-icons">text_snippet</i>

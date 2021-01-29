@@ -181,7 +181,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Egresados Con Trámites</h3>
+                    <h3 class="card-title">Trámites Solicitados</h3>
                     <div class="container text-right">
                         <form action="{{route('download.tramites',[
                         'tramite' =>$tramiteSelected,
@@ -213,6 +213,8 @@
                                 <th scope="col">No. de Control</th>
                                 <th scope="col">Trámite</th>
                                 <th scope="col">Carrera</th>
+                                <th scope="col">Fecha Ingreso</th>
+                                <th scope="col">Fecha Ingreso</th>
                                 <th scope="col" style="width: 180px">Opciones</th>
                             </tr>
                             @endif
@@ -227,6 +229,8 @@
                             <td scope="row">{{$tramite->noControl}}</td>
                             <td scope="row">{{$tramite->tipo}}</td>
                             <td scope="row">{{$tramite->carrera}}</td>
+                            <td scope="row">{{$tramite->fechaIngreso}}</td>
+                            <td scope="row">{{$tramite->fechaEgreso}}</td>
                             <td>
                                 <a href="{{route('egresados.tramites',$tramite->egresado_id)}}" class="btn btn-info btn-sm">
                                     Ver Trámites
