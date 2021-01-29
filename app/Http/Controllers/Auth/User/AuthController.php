@@ -74,4 +74,12 @@ class AuthController extends Controller
         auth($this->guard)->logout();
         return response()->json(['mensaje' => 'Ha cerrado sesión satisfactoriamente']);
     }
+
+    public function getUser($id)
+    {
+        $usuarioActivo = User::where('id',$id)->first();
+        if($usuarioActivo)
+            return response()->json(['ok' => 'active'],200);
+        return response()->json(['wrong' => 'inactive'],403);
+    }
 }
