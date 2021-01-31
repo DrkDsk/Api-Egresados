@@ -78,11 +78,11 @@ class RegisterController extends Controller
         if (!$tokenData) 
             return redirect()->back()->withErrors(['email' => 'Correo Electrónico inválido']);
         else{
-            $user = User::create([
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'is_admin' => 0
-            ]);
+            $user = new User();
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->is_admin = 1;
+            $user->save();
 
             $this->deleteRegisterTokens($request->email);
             if(Auth::guest()){
