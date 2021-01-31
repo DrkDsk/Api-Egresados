@@ -60,13 +60,20 @@ class AuthController extends Controller
                 'message' => 'Usuario registrado'
             ],401);
         }else{
-            $user = new User();
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->is_admin = 0;
-            $user->save();
+            $user = User::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'is_admin' => 0
+            ]);
+
+            $token = JWTAuth::attempt([
+                'email' => $request->email, 
+                'password' => $request->password, 
+                'is_admin' => 0
+            ]);
+
+            return $this->responseWithToken($token,$request->email);
         }
-        return response()->json(['status' => 'ok'],200);
     }
 
     public function logout(Request $request)
