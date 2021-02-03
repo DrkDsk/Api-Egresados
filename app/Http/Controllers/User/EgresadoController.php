@@ -10,6 +10,7 @@ use App\Models\ListaTramite;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
+use JWTAuth;
 
 class EgresadoController extends Controller
 {
@@ -25,6 +26,8 @@ class EgresadoController extends Controller
     }
 
     public function getFormulario($id){
+        if($id != JWTAuth::user()->id) return response()->json(["unauthorized" => "Usuario Inválido"],403);
+        
         if (!User::where('id',$id)->where('is_admin',0)->first()){
             return response()->json(['Usuario no encontrado'],402);
         }
@@ -55,6 +58,8 @@ class EgresadoController extends Controller
         
         if ($validator->fails())
             return response()->json([$validator->errors()->first()],400);
+        
+        if($request->id != JWTAuth::user()->id) return response()->json(["unauthorized" => "Usuario Inválido"],403);
 
         if (!User::where('id',$request->id)->where('is_admin',0)->first()) 
             return response()->json(['Usuario no encontrado'],403);
@@ -101,6 +106,8 @@ class EgresadoController extends Controller
         if ($validator->fails())
             return response()->json([$validator->errors()->first()],400);
 
+        if($id != JWTAuth::user()->id) return response()->json(["unauthorized" => "Usuario Inválido"],403);
+
         if (!User::where('id',$id)->where('is_admin',0)->first()) 
             return response()->json(['Usuario no encontrado'],403);
         
@@ -128,6 +135,8 @@ class EgresadoController extends Controller
 
     public function getTramites($id)
     {
+        if($id != JWTAuth::user()->id) return response()->json(["unauthorized" => "Usuario Inválido"],403);
+
         $egresado_id = Egresado::where('user_id',$id)->first();
         if (!$egresado_id) 
             return response()->json(['Egresado no encontrado'],401);
@@ -147,6 +156,8 @@ class EgresadoController extends Controller
 
         if ($validator->fails())
             return response()->json([$validator->errors()->first()],202);
+
+        if($request->id != JWTAuth::user()->id) return response()->json(["unauthorized" => "Usuario Inválido"],403);
         
         if (!User::where('id',$request->id)->where('is_admin',0)->first()) 
             return response()->json(['Usuario no encontrado'],401);
@@ -170,6 +181,8 @@ class EgresadoController extends Controller
 
     public function getCitas($id)
     {
+        if($id != JWTAuth::user()->id) return response()->json(["unauthorized" => "Usuario Inválido"],403);
+
         $egresado_id = Egresado::where('user_id',$id)->first();
         
         if (!$egresado_id)
