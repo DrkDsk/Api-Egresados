@@ -40,14 +40,18 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
 
-        Fortify::registerView(fn () => view('auth.register'));
+        Fortify::registerView(function () {
+            return view('auth.register');
+        });
 
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        Fortify::loginView(fn () => view('auth.login'));
+        Fortify::loginView(function (){
+            return view('auth.login');
+        });
         
         Fortify::verifyEmailView(function () {
             return view('auth.verify-email');
