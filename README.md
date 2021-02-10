@@ -24,10 +24,3 @@ $ php artisan key:generate
 # run migration
 $ php artisan migrate
 ```
-#� �a�p�i�V�8�_�e�g�r�e�s�a�d�o�s�
-�
-�#� �a�p�i�V�8�_�e�g�r�e�s�a�d�o�s�
-�
-�#� �a�p�i�V�8�_�e�g�r�e�s�a�d�o�s�
-�
-�
