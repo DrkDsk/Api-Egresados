@@ -38,6 +38,15 @@ $ php artisan migrate
 
 ![Captura de pantalla (421)](https://user-images.githubusercontent.com/45542462/108213658-e6b6c180-70f4-11eb-9ebe-6f976b1379f3.png)
 
+## Recuperar Contraseña
+
+_Enviar Email de Solicitud de Reinicio de Contraseña_
+![Captura de pantalla (426)](https://user-images.githubusercontent.com/45542462/108233442-664e8b80-7109-11eb-9abd-35168f2d609e.png)
+
+_Formulario de Reinicio de Contraseña_
+
+![Captura de pantalla (419)](https://user-images.githubusercontent.com/45542462/108233614-972ec080-7109-11eb-82ea-5db0baa5f33a.png)
+
 ## Dashboard
 ![Captura de pantalla (422)](https://user-images.githubusercontent.com/45542462/108214212-870ce600-70f5-11eb-961c-94c8b84ffd92.png)
 
