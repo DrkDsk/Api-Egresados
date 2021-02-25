@@ -19,7 +19,7 @@
                     @endif
 
                     <form class="row g-3" method="POST" enctype="multipart/form-data" action="{{route('citar.sendEmail',[
-                    'tramite' => $tramiteS, 
+                    'tramite' => $tramiteS,
                     'carrera' => $carreraS,
                     'yearIngreso' => $yearIngresoSelected,
                     'yearEgreso'  => $yearEgresoSelected,
@@ -49,7 +49,7 @@
                                         </span>
                                     @enderror
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="cita">Examinar Archivo:</label>
                                 <input name="file" class="form-control" id="formFile" type="file">
@@ -67,7 +67,7 @@
                                         </span>
                                     @enderror
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="hora">Hora de cita:</label>
                                 <input id="hora" type="time" class="form-control @error('hora') is-invalid @enderror" name="hora">
@@ -85,7 +85,7 @@
                         </div>
                 </div>
             </div>
-                
+
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Egresados</h3>
@@ -107,11 +107,11 @@
                             <tbody>
                             @foreach($egresados as $egresado)
                                 <tr>
-                                    <td scope="row">{{$egresado->name}}</td>
-                                    <td scope="row">{{$egresado->apellido1}}</td>
-                                    <td scope="row">{{$egresado->apellido2}}</td>
+                                    <td scope="row">{{$egresado->egresado->name}}</td>
+                                    <td scope="row">{{$egresado->egresado->apellido1}}</td>
+                                    <td scope="row">{{$egresado->egresado->apellido2}}</td>
                                     <td scope="row">{{$egresado->tipo}}</td>
-                                    <td scope="row">{{$egresado->carrera}}</td>
+                                    <td scope="row">{{$egresado->egresado->carrera}}</td>
                                     <td scope="row"><input type="checkbox" name="option[]" id="checkbox" value="{{$egresado->id}}"></td>
                                 </tr>
                             @endforeach
