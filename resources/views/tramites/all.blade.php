@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-md-11 offset-md-1">
                                 <div class="row">
-                                    
+
                                     <div class="col-md-3 form-group">
                                         <div class="form-group">
                                             <label>Trámites</label>
@@ -67,7 +67,7 @@
                                                 <input type="radio" id="anioSpe" name="anioSpe">
                                             </label>
                                         </div>
-                                        
+
                                         <div id="divByYear" class="text-center">
                                             <div class="form-group" id="divAnio">
                                                 <label for="">Año de Ingreso: </label>
@@ -164,7 +164,7 @@
 
                     <div class="container d-flex justify-content-end">
                         <form action="{{route('tramites_emails',[
-                        'tramite' => $tramiteSelected, 
+                        'tramite' => $tramiteSelected,
                         'carrera' => $carreraSelected,
                         'yearIngreso' => $yearIngresoSelected,
                         'yearEgreso'  => $yearEgresoSelected,
@@ -223,14 +223,14 @@
                         <tbody>
                         @foreach ($tramites as $tramite)
                         <tr>
-                            <td scope="row">{{$tramite->name}}</td>
-                            <td scope="row">{{$tramite->apellido1}}</td>
-                            <td scope="row">{{$tramite->apellido2}}</td>
-                            <td scope="row">{{$tramite->noControl}}</td>
+                            <td scope="row">{{$tramite->egresado->name}}</td>
+                            <td scope="row">{{$tramite->egresado->apellido1}}</td>
+                            <td scope="row">{{$tramite->egresado->apellido2}}</td>
+                            <td scope="row">{{$tramite->egresado->noControl}}</td>
                             <td scope="row">{{$tramite->tipo}}</td>
-                            <td scope="row">{{$tramite->carrera}}</td>
-                            <td scope="row">{{$tramite->fechaIngreso}}</td>
-                            <td scope="row">{{$tramite->fechaEgreso}}</td>
+                            <td scope="row">{{$tramite->egresado->carrera}}</td>
+                            <td scope="row">{{$tramite->egresado->fechaIngreso}}</td>
+                            <td scope="row">{{$tramite->egresado->fechaEgreso}}</td>
                             <td>
                                 <a href="{{route('egresados.tramites',$tramite->egresado_id)}}" class="btn btn-info btn-sm">
                                     Ver Trámites
@@ -318,7 +318,7 @@
         document.getElementById("anioSpe").checked  = false;
         document.getElementById("radioSpe").checked  = true;
     }
-    
+
     function hideFechaEspecifica(e){
         $('#divSpeci input[type="date"]').val('');
         document.getElementById("radioSpe").checked  = false;
