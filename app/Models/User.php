@@ -13,20 +13,17 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
 
-    
     protected $fillable = [
         'name',
         'email',
         'password',
     ];
 
-    
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -35,7 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->getKey();
     }
-    
+
     public function getJWTCustomClaims()
     {
         return [];
