@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\Filter;
 class TramitesController extends Controller
 {
     public function allTramites(Request $request)
-    {   
+    {
         $tramite  = $request->tramite;
         $carrera  = $request->carrera;
         $anioIngresado = $request->yearIngreso;
@@ -35,7 +35,7 @@ class TramitesController extends Controller
         $filterTramites = new Filter();
         $yearsIngreso   = $filterTramites->getYearsIngreso();
         $yearsEgreso    = $filterTramites->getYearsEgreso();
-        $tramites      = $filterTramites->getTramites($tramite,$carrera,$dates);
+        $tramites       = $filterTramites->getTramites($tramite,$carrera,$dates);
 
         $carreras = ListaCarrera::all();
         $listaTramites = ListaTramite::all();
@@ -49,7 +49,7 @@ class TramitesController extends Controller
         if(!$dateSpeIngreso)  $dateSpeIngreso = " ";
         if(!$dateSpeEgreso) $dateSpeEgreso = " ";
 
-        return view('tramites.all',[ 
+        return view('tramites.all',[
             'tramites' => $tramites,
             'carreras' => $carreras,
             'listaTramites' => $listaTramites,
