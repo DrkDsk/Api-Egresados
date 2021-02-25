@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\EmailsNotSends;
-use App\Http\Controllers\Admin\Filter;
 use App\Mail\EmailEgresados;
 use App\Models\Cita;
 use App\Models\User;
@@ -15,6 +14,7 @@ use App\Models\ListaCarrera;
 use App\Models\ListaTramite;
 use App\Jobs\SendEmailEgresados;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Utils;
 
 class CitasController extends Controller
 {
@@ -25,16 +25,16 @@ class CitasController extends Controller
     }
 
     public function sendMailsRestantes(Request $request)
-    {   
-        
+    {
+
         $selected = $request->only('option');
         $filterEmails = new Filter();
 
         if($selected)
             $citasSelected = $filterEmails->getEmailsNoEnviados($selected);
         else
-            $citasSelected = EmailsNotSends::all();   
-        
+            $citasSelected = EmailsNotSends::all();
+
         foreach($citasSelected as $cita){
             $tramite = Tramite::where('id',$cita->tramite_id)->first()->tipo;
 
@@ -48,7 +48,7 @@ class CitasController extends Controller
 
             try {
                 \Mail::to($cita->destino)->send(new EmailEgresados($data));
-                
+
                 $newCita = new Cita();
                 $newCita->tramite_id = $cita->tramite_id;
                 $newCita->descripcion = $cita->mensaje;
@@ -60,7 +60,7 @@ class CitasController extends Controller
                 $cita = EmailsNotSends::where('id',$cita->id);
                 $cita->delete();
 
-            } catch (\Throwable $th) {   
+            } catch (\Throwable $th) {
             }
         }
         return redirect()->back()->with('status','Se han enviado los emails seleccionados');
@@ -76,7 +76,7 @@ class CitasController extends Controller
             $yearIngreso,
             $yearEgreso
         ];
-        
+
         $filterEmails = new Filter();
         $egresados = $filterEmails->getTramites($tramite,$carrera,$dates);
 
@@ -103,17 +103,17 @@ class CitasController extends Controller
     }
 
     public function sendEmails(Request $request,$tramite,$carrera,$yearIngreso,$yearEgreso,$dateRangeIngreso,$dateRangeEgreso,$dateSpeIngreso,$dateSpeEgreso)
-    {   
+    {
         $request->validate([
             'mensaje' => 'required',
             'fecha'   => 'required',
             'hora'    => 'required',
             'asunto'  => 'required'
         ]);
-        
+
         $selected = $request->only('option');
         $fails = false;
-        
+
         $dates = [
             $dateRangeIngreso,
             $dateRangeEgreso,
@@ -124,12 +124,8 @@ class CitasController extends Controller
         ];
 
         $filterEmails = new Filter();
+        $egresadosSelected = $filterEmails->getMailsCheckBox($tramite,$carrera,$dates,$selected);
 
-        if($selected)
-            $egresadosSelected = $filterEmails->getMailsCheckbox($tramite,$carrera,$dates,$selected);
-        else
-            $egresadosSelected = $filterEmails->getMailsRestantes($tramite,$carrera,$dates,$selected);
-        
         $data = [
             "mensaje" => $request->mensaje,
             "asunto"  => $request->asunto,
@@ -146,10 +142,11 @@ class CitasController extends Controller
             $data["file"] = base64_encode($contents);
             $data["nameFile"] = $name_file;
         }
-        
+
         foreach ($egresadosSelected as $tramite){
             $user = Egresado::where('id',$tramite->egresado_id)->first()->user_id;
             $user = User::where('id',$user)->first()->email;
+
             $data["tramite"] = $tramite->tipo;
 
             try {
@@ -184,7 +181,7 @@ class CitasController extends Controller
     {
         $tramite = $request->tramite;
         $carrera = $request->carrera;
-        
+
         $citas = new Filter();
         $citas = $citas->getAllCitas($tramite,$carrera);
 
@@ -194,7 +191,7 @@ class CitasController extends Controller
         if(!$tramite) $tramite = ' ';
         if(!$carrera) $carrera = ' ';
 
-        return view ('citas.all',[ 
+        return view ('citas.all',[
             'citas'    => $citas,
             'carreras' => $carreras,
             'tramites' => $tramites,
@@ -224,7 +221,7 @@ class CitasController extends Controller
         $user = Egresado::where('id',$user)->first()->user_id;
         $user = User::where('id',$user)->first()->email;
         $tramite = Tramite::where('id',$id)->first()->tipo;
-        
+
         $data = [
             "tramite" => $tramite,
             "mensaje" => $request->mensaje,
