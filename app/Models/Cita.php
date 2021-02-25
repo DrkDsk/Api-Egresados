@@ -8,7 +8,7 @@ class Cita extends Model
 {
     protected $fillable = ['tramite_id','fecha','descripcion'];
 
-    public function tramites()
+    public function tramite()
     {
         return $this->belongsTo('App\Models\Tramite');
     }
