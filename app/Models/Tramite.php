@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tramite extends Model
 {
-    protected $fillable = ['tipo','finalizado'];
+    protected $fillable = ['egresado_id','tipo','finalizado'];
 
     public function ScopeTipo($query,$tipo)
     {
@@ -27,7 +27,7 @@ class Tramite extends Model
     {
         if($fechaEgresoRange) return $query->whereDate('egresados.fechaEgreso','<=',$fechaEgresoRange);
     }
-    
+
     public function ScopeFechaIngresoSpe($query,$fechaIngresoSpe)
     {
         if($fechaIngresoSpe) return $query->whereDate('egresados.fechaIngreso',$fechaIngresoSpe);
@@ -37,7 +37,7 @@ class Tramite extends Model
     {
         if($fechaIngresoSpe) return $query->whereDate('egresados.fechaEgreso',$fechaIngresoSpe);
     }
-    
+
     public function ScopeYearIngreso($query,$anioIngreso)
     {
         if($anioIngreso) return $query->whereYear('egresados.fechaIngreso',$anioIngreso);
@@ -51,5 +51,9 @@ class Tramite extends Model
     public function citas()
     {
         return $this->hasMany('App\Models\Cita');
+    }
+
+    public function egresado(){
+        return $this->belongsTo(Egresado::class);
     }
 }
