@@ -5,6 +5,7 @@ use App\Models\Tramite;
 use App\Models\Egresado;
 use App\Models\EmailsNotSends;
 use App\Models\Cita;
+use App\Models\User;
 use Carbon\Carbon;
 
 class Filter{
@@ -13,16 +14,15 @@ class Filter{
     {
         if($carrera == ' ') $carrera = "";
 
-        $egresados = Egresado::
-        tipo($opcionElegida,$opcion)
-        ->carrera($carrera)
-        ->fechaIngresoRange($dates[0])
-        ->fechaEgresoRange($dates[1])
-        ->fechaIngresoSpe($dates[2])
-        ->fechaEgresoSpe($dates[3])
-        ->yearIngreso($dates[4])
-        ->yearEgreso($dates[5])
-        ->paginate(10);
+        $egresados = Egresado::tipo($opcionElegida,$opcion)
+            ->carrera($carrera)
+            ->fechaIngresoRange($dates[0])
+            ->fechaEgresoRange($dates[1])
+            ->fechaIngresoSpe($dates[2])
+            ->fechaEgresoSpe($dates[3])
+            ->yearIngreso($dates[4])
+            ->yearEgreso($dates[5])
+            ->paginate(10);
 
         return $egresados;
     }
@@ -34,24 +34,18 @@ class Filter{
 
         for($i = 0; $i<count($dates); ++$i)
             if($dates[$i] == " ") $dates[$i] = "";
-        
-        $tramites = Tramite::join('egresados','tramites.egresado_id','=','egresados.id')
-        ->select('tramites.*','egresados.name','egresados.apellido1','egresados.apellido2',
-        'egresados.noControl','egresados.carrera','egresados.fechaIngreso','egresados.fechaEgreso')
-        ->tipo($tramite)
-        ->carrera($carrera)
-        ->fechaIngresoRange($dates[0])
-        ->fechaEgresoRange($dates[1])
-        ->fechaIngresoSpe($dates[2])
-        ->fechaEgresoSpe($dates[3])
-        ->yearIngreso($dates[4])
-        ->yearEgreso($dates[5])
-        ->orderBy('egresados.carrera','DESC')
-        ->paginate(10);
-        
-        return $tramites;
+
+        return Tramite::tipo($tramite)
+            ->carrera($carrera)
+            ->fechaIngresoRange($dates[0])
+            ->fechaEgresoRange($dates[1])
+            ->fechaIngresoSpe($dates[2])
+            ->fechaEgresoSpe($dates[3])
+            ->yearIngreso($dates[4])
+            ->yearEgreso($dates[5])
+            ->paginate(10);
     }
-    
+
     public function getMailsCheckBox($tramite,$carrera,$dates,$selected)
     {
         if($carrera == ' ') $carrera = "";
@@ -59,73 +53,42 @@ class Filter{
 
         for($i = 0; $i<count($dates); ++$i)
             if($dates[$i] == " ") $dates[$i] = "";
-        
-        $egresados = Tramite::join('egresados','egresado_id','=','egresados.id')
-        ->select('tramites.*','egresados.name','egresados.apellido1','egresados.apellido2','egresados.noControl','egresados.carrera')
-        ->tipo($tramite)
-        ->carrera($carrera)
-        ->fechaIngresoRange($dates[0])
-        ->fechaEgresoRange($dates[1])
-        ->fechaIngresoSpe($dates[2])
-        ->fechaEgresoSpe($dates[3])
-        ->yearIngreso($dates[4])
-        ->yearEgreso($dates[5])
-        ->where(function ($consulta) use ($selected){
-            foreach($selected as $id) $consulta->whereIn('tramites.id',$id);
-        })->paginate(10);
 
-        return $egresados;
-    }
-
-    public function getMailsRestantes($tramite,$carrera,$dates,$selected)
-    {
-        if($carrera == ' ') $carrera = "";
-        if($tramite == ' ') $tramite = "";
-
-        for($i = 0; $i<count($dates); ++$i)
-            if($dates[$i] == " ") $dates[$i] = "";
-
-        $egresados = Tramite::join('egresados','egresado_id','=','egresados.id')
-        ->select('tramites.*','egresados.name','egresados.apellido1','egresados.apellido2','egresados.noControl','egresados.carrera')
-        ->tipo($tramite)
-        ->carrera($carrera)
-        ->fechaIngresoRange($dates[0])
-        ->fechaEgresoRange($dates[1])
-        ->fechaIngresoSpe($dates[2])
-        ->fechaEgresoSpe($dates[3])
-        ->yearIngreso($dates[4])
-        ->yearEgreso($dates[5])
-        ->where(function ($consulta) use ($selected){
-            foreach($selected as $id){
-                $consulta->whereNotIn('tramites.id',$id);
-            }
-        })->orderBy('egresados.carrera','DESC')
-        ->paginate(10);
-
-        return $egresados;
+        return Tramite::tipo($tramite)
+            ->carrera($carrera)
+            ->fechaIngresoRange($dates[0])
+            ->fechaEgresoRange($dates[1])
+            ->fechaIngresoSpe($dates[2])
+            ->fechaEgresoSpe($dates[3])
+            ->yearIngreso($dates[4])
+            ->yearEgreso($dates[5])
+            ->where(function ($consulta) use ($selected){
+                foreach($selected as $id) {
+                    if($selected)
+                        $consulta->whereIn('tramites.id',$id);
+                    else
+                        $consulta->whereNotIn('tramites.id',$id);
+                }
+            })->paginate(10);
     }
 
     public function getAllCitas($tramite,$carrera)
-    {   
-        $citas = Cita::join('tramites','citas.tramite_id','=','tramites.id')
-        ->join('egresados','tramites.egresado_id','=','egresados.id')
-        ->select('citas.*','tramites.tipo','egresados.noControl','egresados.carrera')
-        ->tipo($tramite)
-        ->carrera($carrera)
-        ->paginate(10);
-
-        return $citas;
+    {
+        return Cita::
+            tipo($tramite)
+            ->carrera($carrera)
+            ->paginate(10);
     }
 
     public function getYearsIngreso()
     {
         $yearsIngreso = Egresado::select('fechaIngreso')->get();
         $arrayYearsIngreso = [];
-        
+
         foreach($yearsIngreso as $year){
             $yearIngreso = Carbon::createFromFormat('Y-m-d',$year->fechaIngreso)->year;
             if(!in_array($yearIngreso,$arrayYearsIngreso))
-                array_push($arrayYearsIngreso,$yearIngreso);  
+                array_push($arrayYearsIngreso,$yearIngreso);
         }
         rsort($arrayYearsIngreso);
         return $arrayYearsIngreso;
@@ -133,7 +96,7 @@ class Filter{
 
     public function getYearsEgreso()
     {
-        
+
         $yearsEgreso = Egresado::select('fechaEgreso')->get();
         $arrayYearsEgresado = [];
 
@@ -155,6 +118,5 @@ class Filter{
         })->get();
 
         return $citas;
-        
     }
 }
