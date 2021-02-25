@@ -36,7 +36,7 @@ class Egresado extends Model
     {
         if($fechaEgresoRange) return $query->whereDate('fechaEgreso','<=',$fechaEgresoRange);
     }
-    
+
     public function ScopeFechaIngresoSpe($query,$fechaIngresoSpe)
     {
         if($fechaIngresoSpe) return $query->whereDate('fechaIngreso',$fechaIngresoSpe);
@@ -46,7 +46,7 @@ class Egresado extends Model
     {
         if($fechaIngresoSpe) return $query->whereDate('fechaEgreso',$fechaIngresoSpe);
     }
-    
+
     public function ScopeYearIngreso($query,$anioIngreso)
     {
         if($anioIngreso) return $query->whereYear('fechaIngreso',$anioIngreso);
