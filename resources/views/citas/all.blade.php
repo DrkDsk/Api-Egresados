@@ -4,7 +4,7 @@
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
-            
+
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">Filtrar</h2>
@@ -12,7 +12,7 @@
                         <div class="row">
                             <div class="col-md-10 offset-md-1">
                                 <div class="row">
-                                    
+
                                     <div class="col-md-6 form-group">
                                         <div class="form-group">
                                             <label for="">Trámites</label>
@@ -102,9 +102,9 @@
                         <tbody>
                             @foreach ($citas as $cita)
                             <tr>
-                                <td>{{$cita->noControl}}</td>
-                                <td>{{$cita->carrera}}</td>
-                                <td>{{$cita->tipo}}</td>
+                                <td>{{$cita->tramite->egresado->noControl}}</td>
+                                <td>{{$cita->tramite->egresado->carrera}}</td>
+                                <td>{{$cita->tramite->tipo}}</td>
                                 <td>{{$cita->fecha}}</td>
                                 <td>{{$cita->hora}}</td>
                                 <td>{{$cita->descripcion}}</td>
@@ -114,7 +114,7 @@
                     </table>
                     {{$citas->links()}}
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
     </div>
