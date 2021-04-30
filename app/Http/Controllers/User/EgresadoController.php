@@ -49,7 +49,7 @@ class EgresadoController extends Controller
             'apellido1' => 'required',
             'noControl' => 'required|size:8',
             'movil'     => 'required|size:10',
-            'teléfono_de_casa' => 'nullable|size:10',
+            'telefono_casa' => 'nullable|size:10',
             'email_alternativo' => 'nullable|email',
             'carrera' => 'required',
             'fechaInicio' => 'required|date',
@@ -77,7 +77,7 @@ class EgresadoController extends Controller
             $user->apellido2 = $request->apellido2;
             $user->noControl = $request->noControl;
             $user->movil = $request->movil;
-            $user->telefono_casa = $request->teléfono_de_casa;
+            $user->telefono_casa = $request->telefono_casa;
             $user->email_alternativo = $request->email_alternativo;
             $user->carrera = $request->carrera;
             $user->fechaIngreso = $request->fechaInicio;
@@ -96,7 +96,7 @@ class EgresadoController extends Controller
             'apellido1' => 'required',
             'noControl' => 'required|size:8',
             'movil'     => 'required|size:10',
-            'teléfono_de_casa' => 'nullable|size:10',
+            'telefono_casa' => 'nullable|size:10',
             'email_alternativo' => 'nullable|email',
             'carrera' => 'required',
             'fechaInicio' => 'required|date',
@@ -121,7 +121,7 @@ class EgresadoController extends Controller
             $formulario->apellido2 = $request->apellido2;
             $formulario->noControl = $request->noControl;
             $formulario->movil = $request->movil;
-            $formulario->telefono_casa = $request->teléfono_de_casa;
+            $formulario->telefono_casa = $request->telefono_casa;
             $formulario->email_alternativo = $request->email_alternativo;
             $formulario->carrera = $request->carrera;
             $formulario->fechaIngreso = $request->fechaInicio;
