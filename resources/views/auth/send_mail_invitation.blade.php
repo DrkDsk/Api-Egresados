@@ -16,8 +16,8 @@
                         @endif
                         
                         <div class="card-title d-flex justify-content-between">
-                            <img src="{{url('assets/img/tecnm.png')}}" style="width:31%; height: 40%;">
-                            <img src="{{url('assets/img/icon.png')}}" style="width:15%;">
+                            <img src="{{ URL::asset('assets/img/tecnm.png') }}" style="width:31%; height: 40%;">
+                            <img src="{{ URL::asset('assets/img/icon.png') }}" style="width:15%;">
                         </div>
 
                         <p class="text-center h4 mb-1">Correo Electrónico a Invitar</p>

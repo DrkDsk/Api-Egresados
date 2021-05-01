@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
-
-    <link rel="stylesheet" href="/css/app.css">
+    
+    <link rel="stylesheet" href="{{ URL::asset('/css/app.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -21,8 +21,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="card-title d-flex justify-content-between">
-                                    <img src="assets/img/tecnm.png" style="width:31%; height: 40%;">
-                                    <img src="assets/img/icon.png" style="width:15%;">
+                                    <img src="{{ URL::asset('assets/img/tecnm.png') }}" style="width:31%; height: 40%;">
+                                    <img src="{{ URL::asset('assets/img/icon.png') }}" style="width:15%;">
                                 </div>
                                 <div class="card-text pt-4">
                                     <form method="POST" action="{{ route('login') }}">
@@ -79,6 +79,7 @@
                 </div>
             </div>
     </main>
-<script src="/js/app.js"></script>
+    
+<script src="{{ URL::asset('/js/app.js') }}"></script>
 </body>
 </html>
